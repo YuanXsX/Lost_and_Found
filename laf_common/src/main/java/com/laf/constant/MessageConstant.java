@@ -40,4 +40,6 @@ public class MessageConstant {
     public static final String SERVER_ERROR = "服务器内部错误";
     public static final String UNKNOWN_ERROR = "未知错误";
     public static final String ALREADY_EXISTS = "已存在";
+    public static final String CARD_NOT_FOUND = "校园卡信息不存在";
+    public static final String CARD_NOT_TRUE = "校园卡与个人信息不匹配";
 }

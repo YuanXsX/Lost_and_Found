@@ -17,4 +17,8 @@ public class FoundItemDTO implements Serializable {
     private LocalDateTime foundTime;
     private String imageUrl;
     private Long publisherId;
+    private  String item_type;
+    private String status;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

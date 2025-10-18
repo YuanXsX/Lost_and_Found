@@ -19,8 +19,8 @@ public interface UserMapper {
      * 插入用户信息
      * @param user
      */
-    @Insert("INSERT INTO user (username, password, phone, email, status, create_time, update_time) " +
-            "VALUES (#{username}, #{password}, #{phone}, #{email}, #{status}, #{createTime}, #{updateTime})")
+    @Insert( "INSERT INTO user (card_number, username, password, email, phone, create_time, update_time, is_active, avatar_url) " +
+            "VALUES (#{cardNumber}, #{username}, #{password}, #{email}, #{phone}, #{createTime}, #{updateTime}, #{isActive}, #{avatarUrl})")
     void insert(User user);
 
     /**
@@ -36,4 +36,12 @@ public interface UserMapper {
      * @param user
      */
     void update(User user);
+
+    /**
+     * 更新用户头像URL
+     * @param userId
+     * @param publicUrl
+     */
+    @Select("UPDATE user SET avatar_url = #{publicUrl} WHERE id = #{userId}")
+    void updateAvatarUrl(Long userId, String publicUrl);
 }

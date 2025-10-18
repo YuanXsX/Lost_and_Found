@@ -5,6 +5,8 @@ package com.laf.controller.user;
  */
 
 import com.laf.constant.JwtClaimsConstant;
+import com.laf.context.BaseContext;
+import com.laf.dto.UserDTO;
 import com.laf.dto.UserLoginDTO;
 import com.laf.entity.User;
 import com.laf.properties.JwtProperties;
@@ -14,11 +16,12 @@ import com.laf.utils.JwtUtil;
 import com.laf.vo.UserLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +57,53 @@ public class UserController {
         UserLoginVO userLoginVO = UserLoginVO.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .cardNumber(user.getCardNumber())
                 .token(token)
                 .build();
         return Result.success(userLoginVO);
     }
+
+    /**
+     * 用户注册
+     * @param userDTO
+     * @return
+     */
+    @PostMapping("/register")
+    @ApiOperation(value = "用户注册", notes = "用户注册接口")
+    public Result<String> register(UserDTO userDTO) {
+        log.info("用户注册，用户名：{}", userDTO.getUsername());
+        UserService.register(userDTO);
+        return Result.success("注册成功");
+    }
+
+    /**
+     * 绑定校园卡
+     * @param cardNumber
+     * @param real_name
+     * return
+     */
+    @PostMapping("/bindCard")
+    @ApiOperation(value = "绑定校园卡", notes = "绑定校园卡接口")
+    public Result<String> bindCard(String cardNumber,String real_name) {
+        Long userid = BaseContext.getCurrentId();
+        log.info("绑定校园卡，用户id：{}，卡号：{}", userid, cardNumber);
+        UserService.bindCard(userid,cardNumber,real_name);
+        return Result.success("绑定成功");
+    }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @GetMapping("/info")
+    @ApiOperation(value = "获取用户信息", notes = "获取用户信息接口")
+    public Result<User> getUserInfo() {
+        Long userid = BaseContext.getCurrentId();
+        log.info("获取用户信息，用户id：{}", userid);
+        User user = UserService.getById(userid);
+        return Result.success(user);
+    }
+
+
 }
+

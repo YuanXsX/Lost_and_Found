@@ -7,9 +7,13 @@
         <set>
             <if test="username != null">username = #{username},</if>
             <if test="password != null">password = #{password},</if>
-            <if test="salt != null">salt = #{salt},</if>
             <if test="phone != null">phone = #{phone},</if>
             <if test="email != null">email = #{email},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="cardNumber != null">card_number = #{cardNumber},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="isActive != null">is_active = #{isActive},</if>
         </set>
         WHERE id = #{id}
     </update>
