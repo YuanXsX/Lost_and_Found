@@ -12,6 +12,7 @@ public class MessageConstant {
     public static final String USER_LOGIN_SUCCESS = "登录成功";
     public static final String USER_LOGOUT_SUCCESS = "退出登录成功";
     public static final String UNAUTHORIZED = "未授权访问";
+    public static final String FORBIDDEN = "禁止访问";
 
     // 失物招领信息相关
     public static final String LOST_ITEM_PUBLISH_SUCCESS = "失物信息发布成功";
@@ -37,4 +38,6 @@ public class MessageConstant {
     // 通用
     public static final String PARAMETER_ERROR = "参数错误";
     public static final String SERVER_ERROR = "服务器内部错误";
+    public static final String UNKNOWN_ERROR = "未知错误";
+    public static final String ALREADY_EXISTS = "已存在";
 }

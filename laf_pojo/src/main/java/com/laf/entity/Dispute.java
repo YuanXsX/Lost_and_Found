@@ -1,14 +1,15 @@
 package com.laf.entity;
 
 import lombok.Data;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 纠纷实体类
  */
 @Data
-public class Dispute {
-    private Long id;
+public class Dispute implements Serializable {
     private Long claimId;
     private Long userId;
     private String reason;

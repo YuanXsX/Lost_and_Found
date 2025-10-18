@@ -1,13 +1,15 @@
 package com.laf.entity;
 
 import lombok.Data;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 失物招领实体类
  */
 @Data
-public class LostItem {
+public class LostItem implements Serializable {
     private Long id;
     private String title;
     private String description;

@@ -2,13 +2,14 @@ package com.laf.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 失物数据传输对象
  */
 @Data
-public class LostItemDTO {
+public class LostItemDTO implements Serializable {
     private Long id;
     private String name;
     private String description;

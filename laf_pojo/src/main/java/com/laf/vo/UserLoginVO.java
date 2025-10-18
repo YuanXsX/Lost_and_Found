@@ -1,21 +1,21 @@
 package com.laf.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserVO implements Serializable {
-    private Long id;
+@ApiModel(description = "用户登录返回的数据格式")
+public class UserLoginVO implements Serializable {
+    private long id;
     private String username;
-    private String email;
-    private String phone;
-    private BigDecimal pricture;
+    private  String cardNumber;
+    private String token;
 }

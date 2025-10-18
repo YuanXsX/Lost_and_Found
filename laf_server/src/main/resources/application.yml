@@ -7,11 +7,11 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    druid:
-      driver-class-name: ${laf.datasource.driver-class-name}
-      url: jdbc:mysql://${laf.datasource.host}:${laf.datasource.port}/${laf.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${laf.datasource.username}
-      password: ${laf.datasource.password}
+    type: com.alibaba.druid.pool.DruidDataSource # 指定使用Druid数据源
+    driver-class-name: ${laf.datasource.driver-class-name}
+    url: jdbc:mysql://${laf.datasource.host}:${laf.datasource.port}/${laf.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${laf.datasource.username}
+    password: ${laf.datasource.password}
 
 mybatis:
   #mapper配置文件

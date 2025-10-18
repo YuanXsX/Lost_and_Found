@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DisputeVO {
+public class DisputeVO implements Serializable {
     private Long id;
     private ClaimVO claim;
     private String reason;
