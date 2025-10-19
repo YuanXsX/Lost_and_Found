@@ -1,12 +1,13 @@
 package com.laf.service;
 
-import com.laf.entity.LostItem;
+import com.laf.dto.LostItemDTO;
+
 
 public interface LostItemService {
     /**
      * 创建失物信息
-     * @param lostItem 失物信息对象
+     * @param lostItemDTO 失物信息对象
      * @return 创建成功的失物ID
      */
-    Long createLostItem(LostItem lostItem);
+    Long createLostItem(LostItemDTO lostItemDTO);
 }

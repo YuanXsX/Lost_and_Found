@@ -15,9 +15,10 @@ public class FoundItem implements Serializable {
     private String description;     // 物品描述
     private String foundLocation;   // 拾获地点
     private LocalDateTime foundTime; // 拾获时间
-    private String contactInfo;     // 拾取用户id
+    private Long publisherId;     // 拾取用户id
     private Integer status;         // 状态
     private LocalDateTime createTime; // 创建时间
     private LocalDateTime updateTime; // 更新时间
     private String imageUrl;        // 物品图片URL
+    private String itemType;
 }

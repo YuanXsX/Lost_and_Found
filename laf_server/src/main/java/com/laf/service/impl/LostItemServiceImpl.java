@@ -1,8 +1,11 @@
 package com.laf.service.impl;
 
+import com.laf.dto.LostItemDTO;
+import com.laf.entity.FoundItem;
 import com.laf.entity.LostItem;
 import com.laf.mapper.LostItemMapper;
 import com.laf.service.LostItemService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -14,8 +17,10 @@ public class LostItemServiceImpl implements LostItemService {
     private LostItemMapper lostItemMapper;
 
     @Override
-    public Long createLostItem(LostItem lostItem) {
+    public Long createLostItem(LostItemDTO lostItemDTO) {
         // 设置默认值
+        LostItem lostItem = new LostItem();
+        BeanUtils.copyProperties(lostItemDTO, lostItem);
         lostItem.setStatus(0); // 0表示丢失状态
         lostItem.setCreateTime(LocalDateTime.now());
         lostItem.setUpdateTime(LocalDateTime.now());

@@ -82,7 +82,7 @@ public class UserController {
      * @param real_name
      * return
      */
-    @PostMapping("/bindCard")
+    @PostMapping("/{uesrid}/bindCard")
     @ApiOperation(value = "绑定校园卡", notes = "绑定校园卡接口")
     public Result<String> bindCard(String cardNumber,String real_name) {
         Long userid = BaseContext.getCurrentId();
@@ -95,7 +95,7 @@ public class UserController {
      * 获取用户信息
      * @return
      */
-    @GetMapping("/info")
+    @GetMapping("/{userid}/info")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息接口")
     public Result<User> getUserInfo() {
         Long userid = BaseContext.getCurrentId();

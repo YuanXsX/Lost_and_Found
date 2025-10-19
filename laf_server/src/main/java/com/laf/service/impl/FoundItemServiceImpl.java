@@ -1,8 +1,10 @@
 package com.laf.service.impl;
 
+import com.laf.dto.FoundItemDTO;
 import com.laf.entity.FoundItem;
 import com.laf.mapper.FoundItemMapper;
 import com.laf.service.FoundItemService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -14,8 +16,10 @@ public class FoundItemServiceImpl implements FoundItemService {
     private FoundItemMapper foundItemMapper;
 
     @Override
-    public Long createFoundItem(FoundItem foundItem) {
+    public Long createFoundItem(FoundItemDTO foundItemDTO) {
         // 设置默认值
+        FoundItem foundItem = new FoundItem();
+        BeanUtils.copyProperties(foundItemDTO, foundItem);
         foundItem.setStatus(0); // 0表示待认领状态
         foundItem.setCreateTime(LocalDateTime.now());
         foundItem.setUpdateTime(LocalDateTime.now());

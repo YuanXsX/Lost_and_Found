@@ -1,5 +1,7 @@
 package com.laf.controller.user;
 
+import com.laf.context.BaseContext;
+import com.laf.dto.FoundItemDTO;
 import com.laf.entity.FoundItem;
 import com.laf.result.Result;
 import com.laf.service.FoundItemService;
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @RestController
-@RequestMapping("/found")
+@RequestMapping("/laf/user")
 public class FoundItemController {
 
     @Autowired
@@ -24,20 +26,22 @@ public class FoundItemController {
      * 健康检查接口
      * GET http://localhost:8080/found/health
      */
-    @GetMapping("/health")
+    @GetMapping("/found/health")
     public String health() {
         return "招领服务健康运行！时间：" + LocalDateTime.now();
     }
 
     /**
      * 创建招领信息
-     * POST http://localhost:8080/found
+     *
      */
-    @PostMapping
-    public Result<Long> createFoundItem(@RequestBody FoundItem foundItem) {
-        log.info("创建招领信息: {}", foundItem.getItemName());
+    @PostMapping("/{userid}/found/create")
+    public Result<Long> createFoundItem(FoundItemDTO foundItemDTO) {
+        log.info("创建招领信息: {}", foundItemDTO.getItemName());
+        Long userid=BaseContext.getCurrentId();
+        foundItemDTO.setPublisherId(userid);
         try {
-            Long id = foundItemService.createFoundItem(foundItem);
+            Long id = foundItemService.createFoundItem(foundItemDTO);
             log.info("创建成功，ID: {}", id);
             return Result.success(id);
         } catch (Exception e) {

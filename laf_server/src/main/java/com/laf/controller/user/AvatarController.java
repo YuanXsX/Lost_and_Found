@@ -20,7 +20,7 @@ public class AvatarController {
     @Autowired
     private AvatarService avatarService;
 
-    @PostMapping("/upload")
+    @PostMapping("/{userId}/uploadAvatar")
     public ResponseEntity<String> uploadAvatar(@RequestParam Long userId, @RequestParam MultipartFile file) throws Exception {
         String url = avatarService.store(userId, file);
         return ResponseEntity.ok(url);

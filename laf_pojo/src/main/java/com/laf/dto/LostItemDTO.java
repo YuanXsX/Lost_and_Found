@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
 @Data
 public class LostItemDTO implements Serializable {
     private Long id;
-    private String name;
+    private String itemName;
     private String description;
     private String lostLocation;
     private LocalDateTime lostTime;
     private String imageUrl;
     private Long publisherId;
+    private String itemType;
 }
