@@ -1,25 +1,31 @@
 package com.laf.controller.user;
 
+import com.laf.entity.FoundItem;
+import com.laf.result.Result;
 import com.laf.service.FoundItemService;
-import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/laf/user/foundItem")
+import java.time.LocalDateTime;
+
+/**
+ * 招领信息控制器
+ */
 @Slf4j
-@Api(tags = "招领接口")
+@RestController
+@RequestMapping("/found")
 public class FoundItemController {
+
     @Autowired
     private FoundItemService foundItemService;
 
-    @PostMapping("/report")
-    public String reportFoundItem() {
-        log.info("招领物品信息上报");
-        foundItemService.reportFoundItem();
-        return "招领物品信息上报成功";
+    /**
+     * 构造函数 - 用于验证控制器是否被创建
+     */
+    public FoundItemController() {
+        log.info("🎉 FoundItemController 初始化成功！");
     }
+
+
 }

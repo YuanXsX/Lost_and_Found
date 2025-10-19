@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
  */
 @Data
 public class FoundItem implements Serializable {
-    private Long id;
-    private String title;
-    private String description;
-    private String itemType;
-    private String foundLocation;
-    private LocalDateTime foundTime;
-    private String imageUrl;
-    private Long publisherId;
-    private LocalDateTime publishTime;
-    private Boolean isClaimed;
+    private Long id; //物品序号
+    private String itemName;        // 物品名称
+    private String description;     // 物品描述
+    private String foundLocation;   // 拾获地点
+    private LocalDateTime foundTime; // 拾获时间
+    private String contactInfo;     // 拾取用户id
+    private Integer status;         // 状态
+    private LocalDateTime createTime; // 创建时间
+    private LocalDateTime updateTime; // 更新时间
+    private String imageUrl;        // 物品图片URL
 }

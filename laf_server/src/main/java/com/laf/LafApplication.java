@@ -14,5 +14,7 @@ public class LafApplication {
     public static void main(String[] args) {
         SpringApplication.run(LafApplication.class, args);
         log.info("server started");
+
+
     }
 }

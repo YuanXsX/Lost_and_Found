@@ -1,6 +1,12 @@
 package com.laf.service;
 
-public interface FoundItemService {
+import com.laf.entity.FoundItem;
 
-    void reportFoundItem();
+public interface FoundItemService {
+    /**
+     * 创建招领信息
+     * @param foundItem 招领信息对象
+     * @return 创建成功的招领信息ID
+     */
+    Long createFoundItem(FoundItem foundItem);
 }
