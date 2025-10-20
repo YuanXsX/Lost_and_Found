@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement //开启注解方式的事务管理
 @MapperScan("com.laf.mapper")
 @Slf4j
+
 public class LafApplication {
     public static void main(String[] args) {
         SpringApplication.run(LafApplication.class, args);

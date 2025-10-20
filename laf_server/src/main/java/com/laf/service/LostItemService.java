@@ -10,4 +10,6 @@ public interface LostItemService {
      * @return 创建成功的失物ID
      */
     Long createLostItem(LostItemDTO lostItemDTO);
+    // 新增：删除失物信息
+    boolean deleteLostItem(Long id);
 }

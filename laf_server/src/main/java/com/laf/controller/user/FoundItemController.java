@@ -38,7 +38,7 @@ public class FoundItemController {
     @PostMapping("/{userid}/found/create")
     public Result<Long> createFoundItem(FoundItemDTO foundItemDTO) {
         log.info("创建招领信息: {}", foundItemDTO.getItemName());
-        Long userid=BaseContext.getCurrentId();
+        Long userid = BaseContext.getCurrentId();
         foundItemDTO.setPublisherId(userid);
         try {
             Long id = foundItemService.createFoundItem(foundItemDTO);
@@ -49,4 +49,7 @@ public class FoundItemController {
             return Result.error("创建失败: " + e.getMessage());
         }
     }
+
+
+
 }

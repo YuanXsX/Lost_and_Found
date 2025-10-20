@@ -8,7 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class FoundItemServiceImpl implements FoundItemService {
 
@@ -33,5 +35,11 @@ public class FoundItemServiceImpl implements FoundItemService {
         } else {
             throw new RuntimeException("创建招领信息失败");
         }
+    }
+    @Override
+    public boolean deleteFoundItem(Long id) {
+        log.info("删除招领信息，ID: {}", id);
+        int result = foundItemMapper.deleteById(id);
+        return result > 0;
     }
 }

@@ -31,6 +31,9 @@ public class LostItemController {
         return "失物服务健康运行！时间：" + LocalDateTime.now();
     }
 
+
+
+
     /**
      * 创建失物信息
      * POST http://localhost:8080/lost
@@ -50,4 +53,12 @@ public class LostItemController {
             return Result.error("创建失败: " + e.getMessage());
         }
     }
+
+
+
+
+
+
+
+
 }
