@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Update;  // 添加这个导入
+
 
 @Mapper
 public interface LostItemMapper {
@@ -23,4 +25,18 @@ public interface LostItemMapper {
     int deleteById(Long id);
 
 
+
+    // 新增：根据ID更新失物信息
+    @Update("UPDATE lost_item SET " +
+            "item_name = #{itemName}, " +
+            "description = #{description}, " +
+            "lost_location = #{LostLocation}, " +      // 使用 #{LostLocation}
+            "lost_time = #{LostTime}, " +              // 使用 #{LostTime}
+            "publisher_id = #{publisherId}, " +
+            "status = #{status}, " +
+            "update_time = #{updateTime}, " +
+            "image_url = #{imageUrl}, " +
+            "item_type = #{itemType} " +
+            "WHERE id = #{id}")
+    int update(LostItem lostItem);
 }

@@ -43,4 +43,15 @@ public class FoundItemServiceImpl implements FoundItemService {
         return result > 0;
 
     }
+
+    @Override
+    public boolean updateFoundItem(FoundItem foundItem) {
+        log.info("更新招领信息，ID: {}", foundItem.getId());
+
+        // 设置更新时间
+        foundItem.setUpdateTime(LocalDateTime.now());
+
+        int result = foundItemMapper.update(foundItem);
+        return result > 0;
+    }
 }

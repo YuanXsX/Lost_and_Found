@@ -1,7 +1,7 @@
 package com.laf.service;
 
 import com.laf.dto.LostItemDTO;
-
+import com.laf.entity.LostItem;
 
 public interface LostItemService {
     /**
@@ -12,5 +12,7 @@ public interface LostItemService {
     Long createLostItem(LostItemDTO lostItemDTO);
     // 新增：删除失物信息
     boolean deleteLostItem(Long id);
+
+    boolean updateLostItem(LostItem lostItem);
 
 }

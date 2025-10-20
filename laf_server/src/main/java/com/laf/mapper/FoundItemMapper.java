@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Update;  // 添加这个导入
 
 @Mapper
 public interface FoundItemMapper {
@@ -23,4 +24,17 @@ public interface FoundItemMapper {
     @Delete("DELETE FROM found_item WHERE id = #{id}")
     int deleteById(Long id);
 
+
+    @Update("UPDATE found_item SET " +
+            "item_name = #{itemName}, " +
+            "description = #{description}, " +
+            "found_location = #{foundLocation}, " +
+            "found_time = #{foundTime}, " +
+            "publisher_id = #{publisherId}, " +
+            "status = #{status}, " +
+            "update_time = #{updateTime}, " +
+            "image_url = #{imageUrl}, " +
+            "item_type = #{itemType} " +
+            "WHERE id = #{id}")
+    int update(FoundItem foundItem);
 }

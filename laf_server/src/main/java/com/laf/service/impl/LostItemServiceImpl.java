@@ -1,7 +1,6 @@
 package com.laf.service.impl;
 
 import com.laf.dto.LostItemDTO;
-import com.laf.entity.FoundItem;
 import com.laf.entity.LostItem;
 import com.laf.mapper.LostItemMapper;
 import com.laf.service.LostItemService;
@@ -13,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+
 public class LostItemServiceImpl implements LostItemService {
 
     @Autowired
@@ -46,4 +46,14 @@ public class LostItemServiceImpl implements LostItemService {
 
     }
 
+    @Override
+    public boolean updateLostItem(LostItem lostItem) {
+        log.info("更新失物信息，ID: {}", lostItem.getId());
+
+        // 设置更新时间
+        lostItem.setUpdateTime(LocalDateTime.now());
+
+        int result = lostItemMapper.update(lostItem);
+        return result > 0;
+    }
 }
