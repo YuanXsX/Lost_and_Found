@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -54,4 +55,29 @@ public class FoundItemServiceImpl implements FoundItemService {
         int result = foundItemMapper.update(foundItem);
         return result > 0;
     }
+
+    @Override
+    public FoundItem getFoundItemById(Long id) {
+        log.info("根据ID查询招领信息，ID: {}", id);
+        return foundItemMapper.selectById(id);
+    }
+
+    @Override
+    public List<FoundItem> getAllFoundItems() {
+        log.info("查询所有招领信息");
+        return foundItemMapper.selectAll();
+    }
+
+    @Override
+    public List<FoundItem> getFoundItemsByName(String itemName) {
+        log.info("根据物品名称查询招领信息，名称: {}", itemName);
+        return foundItemMapper.selectByItemName(itemName);
+    }
+
+    @Override
+    public List<FoundItem> getFoundItemsByLocation(String foundLocation) {
+        log.info("根据地点查询招领信息，地点: {}", foundLocation);
+        return foundItemMapper.selectByLocation(foundLocation);
+    }
+
 }

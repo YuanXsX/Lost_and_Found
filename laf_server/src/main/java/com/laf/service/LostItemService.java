@@ -3,6 +3,8 @@ package com.laf.service;
 import com.laf.dto.LostItemDTO;
 import com.laf.entity.LostItem;
 
+import java.util.List;
+
 public interface LostItemService {
     /**
      * 创建失物信息
@@ -15,4 +17,16 @@ public interface LostItemService {
 
     boolean updateLostItem(LostItem lostItem);
 
+
+    // 新增：根据ID查询单个失物信息
+    LostItem getLostItemById(Long id);
+
+    // 新增：查询所有失物信息
+    List<LostItem> getAllLostItems();
+
+    // 新增：根据物品名称模糊查询
+    List<LostItem> getLostItemsByName(String itemName);
+
+    // 新增：根据地点查询
+    List<LostItem> getLostItemsByLocation(String lostLocation);
 }

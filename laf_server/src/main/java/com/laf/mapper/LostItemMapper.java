@@ -1,12 +1,8 @@
 package com.laf.mapper;
 
 import com.laf.entity.LostItem;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Update;  // 添加这个导入
-
+import org.apache.ibatis.annotations.*;
+import java.util.List;
 
 @Mapper
 public interface LostItemMapper {
@@ -39,4 +35,21 @@ public interface LostItemMapper {
             "item_type = #{itemType} " +
             "WHERE id = #{id}")
     int update(LostItem lostItem);
+
+    // 新增：根据ID查询单个失物信息
+    @Select("SELECT * FROM lost_item WHERE id = #{id}")
+    LostItem selectById(Long id);
+
+    // 新增：查询所有失物信息
+    @Select("SELECT * FROM lost_item ORDER BY create_time DESC")
+    List<LostItem> selectAll();
+
+    // 新增：根据物品名称模糊查询
+    @Select("SELECT * FROM lost_item WHERE item_name LIKE CONCAT('%', #{itemName}, '%') ORDER BY create_time DESC")
+    List<LostItem> selectByItemName(String itemName);
+
+    // 新增：根据地点查询
+    @Select("SELECT * FROM lost_item WHERE lost_location LIKE CONCAT('%', #{lostLocation}, '%') ORDER BY create_time DESC")
+    List<LostItem> selectByLocation(String lostLocation);
+
 }

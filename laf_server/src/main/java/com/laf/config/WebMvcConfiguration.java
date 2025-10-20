@@ -25,7 +25,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         log.info("注册自定义拦截器...");
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/laf/user/**") // 临时全匹配验证拦截器是否被调用
-                .excludePathPatterns("/laf/user/found/update-get","/laf/user/login", "/laf/user/register");
+                .excludePathPatterns( "/laf/user/found/**","/laf/user/found/update-get","/laf/user/login", "/laf/user/register");
     }
 
     @Override

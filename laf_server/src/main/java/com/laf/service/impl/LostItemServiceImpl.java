@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -56,4 +57,29 @@ public class LostItemServiceImpl implements LostItemService {
         int result = lostItemMapper.update(lostItem);
         return result > 0;
     }
+
+    @Override
+    public LostItem getLostItemById(Long id) {
+        log.info("根据ID查询失物信息，ID: {}", id);
+        return lostItemMapper.selectById(id);
+    }
+
+    @Override
+    public List<LostItem> getAllLostItems() {
+        log.info("查询所有失物信息");
+        return lostItemMapper.selectAll();
+    }
+
+    @Override
+    public List<LostItem> getLostItemsByName(String itemName) {
+        log.info("根据物品名称查询失物信息，名称: {}", itemName);
+        return lostItemMapper.selectByItemName(itemName);
+    }
+
+    @Override
+    public List<LostItem> getLostItemsByLocation(String lostLocation) {
+        log.info("根据地点查询失物信息，地点: {}", lostLocation);
+        return lostItemMapper.selectByLocation(lostLocation);
+    }
+
 }

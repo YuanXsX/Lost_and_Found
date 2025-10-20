@@ -1,11 +1,8 @@
 package com.laf.mapper;
 
 import com.laf.entity.FoundItem;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Update;  // 添加这个导入
+import org.apache.ibatis.annotations.*;
+import java.util.List;
 
 @Mapper
 public interface FoundItemMapper {
@@ -37,4 +34,21 @@ public interface FoundItemMapper {
             "item_type = #{itemType} " +
             "WHERE id = #{id}")
     int update(FoundItem foundItem);
+
+    // 新增：根据ID查询单个招领信息
+    @Select("SELECT * FROM found_item WHERE id = #{id}")
+    FoundItem selectById(Long id);
+
+    // 新增：查询所有招领信息
+    @Select("SELECT * FROM found_item ORDER BY create_time DESC")
+    List<FoundItem> selectAll();
+
+    // 新增：根据物品名称模糊查询
+    @Select("SELECT * FROM found_item WHERE item_name LIKE CONCAT('%', #{itemName}, '%') ORDER BY create_time DESC")
+    List<FoundItem> selectByItemName(String itemName);
+
+    // 新增：根据地点查询
+    @Select("SELECT * FROM found_item WHERE found_location LIKE CONCAT('%', #{foundLocation}, '%') ORDER BY create_time DESC")
+    List<FoundItem> selectByLocation(String foundLocation);
+
 }
