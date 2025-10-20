@@ -43,6 +43,7 @@ public class LostItemServiceImpl implements LostItemService {
         log.info("删除失物信息，ID: {}", id);
         int result = lostItemMapper.deleteById(id);
         return result > 0;
+
     }
 
 }

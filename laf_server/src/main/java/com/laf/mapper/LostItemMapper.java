@@ -22,4 +22,5 @@ public interface LostItemMapper {
     @Delete("DELETE FROM lost_item WHERE id = #{id}")
     int deleteById(Long id);
 
+
 }

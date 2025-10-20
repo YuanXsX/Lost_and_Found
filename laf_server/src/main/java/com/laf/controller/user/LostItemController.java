@@ -51,6 +51,7 @@ public class LostItemController {
         } catch (Exception e) {
             log.error("创建失物信息失败", e);
             return Result.error("创建失败: " + e.getMessage());
+
         }
     }
 

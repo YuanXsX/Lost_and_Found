@@ -22,4 +22,5 @@ public interface FoundItemMapper {
     // 新增：根据ID删除招领信息
     @Delete("DELETE FROM found_item WHERE id = #{id}")
     int deleteById(Long id);
+
 }

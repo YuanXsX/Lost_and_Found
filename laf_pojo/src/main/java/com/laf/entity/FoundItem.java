@@ -21,4 +21,5 @@ public class FoundItem implements Serializable {
     private LocalDateTime updateTime; // 更新时间
     private String imageUrl;        // 物品图片URL
     private String itemType;
+
 }

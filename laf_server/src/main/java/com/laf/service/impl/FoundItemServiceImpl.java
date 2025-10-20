@@ -41,5 +41,6 @@ public class FoundItemServiceImpl implements FoundItemService {
         log.info("删除招领信息，ID: {}", id);
         int result = foundItemMapper.deleteById(id);
         return result > 0;
+
     }
 }
