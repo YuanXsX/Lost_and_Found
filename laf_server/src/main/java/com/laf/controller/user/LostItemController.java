@@ -185,6 +185,7 @@ public class LostItemController {
     /**
      * 根据地点查询失物信息
      * GET http://localhost:8080/laf/user/lost/get-by-location?lostLocation=图书馆
+     *
      */
     @GetMapping("/lost/get-by-location")
     public Result<List<LostItem>> getLostItemsByLocation(@RequestParam String lostLocation) {
