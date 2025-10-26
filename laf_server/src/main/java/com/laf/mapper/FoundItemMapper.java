@@ -1,6 +1,9 @@
 package com.laf.mapper;
 
+import com.github.pagehelper.Page;
+import com.laf.dto.ItemQueryDTO;
 import com.laf.entity.FoundItem;
+import com.laf.entity.LostItem;
 import org.apache.ibatis.annotations.*;
 import java.util.List;
 

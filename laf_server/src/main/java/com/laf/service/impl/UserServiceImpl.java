@@ -1,23 +1,29 @@
 package com.laf.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.laf.constant.MessageConstant;
 import com.laf.constant.PasswordConstant;
+import com.laf.dto.ItemQueryDTO;
 import com.laf.dto.UserDTO;
 import com.laf.dto.UserLoginDTO;
 import com.laf.entity.Card;
+import com.laf.entity.LostItem;
+import com.laf.entity.LostOrFoundItem;
 import com.laf.entity.User;
 import com.laf.exception.AccountLockedException;
 import com.laf.exception.AccountNotFoundException;
 import com.laf.exception.PasswordErrorException;
 import com.laf.mapper.CardMapper;
+import com.laf.mapper.LostOrFoundItemMapper;
 import com.laf.mapper.UserMapper;
+import com.laf.result.PageResult;
 import com.laf.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +34,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     private CardMapper cardMapper;
+    private LostOrFoundItemMapper lostOrFoundItemMapper;
 
     @Value("${laf.avatar.default-url:/images/default_avatar.jpeg}")
     private String defaultAvatarUrl;
@@ -109,4 +116,16 @@ public class UserServiceImpl implements UserService {
     public User getById(Long userId) {
         return userMapper.getById(userId);
     }
+
+    /**
+     *查询用户发布的失物招领信息
+     * @param itemQueryDTO
+     * @return
+     */
+    public PageResult pageQueryLostOrFoundItems(ItemQueryDTO itemQueryDTO) {
+        PageHelper.startPage(itemQueryDTO.getPage(), itemQueryDTO.getPageSize());
+        Page<LostOrFoundItem> page = (Page<LostOrFoundItem>) lostOrFoundItemMapper.pageQueryLostOrFoundItems(itemQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
+    }
+
 }

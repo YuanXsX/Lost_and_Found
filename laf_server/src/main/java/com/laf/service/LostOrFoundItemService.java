@@ -5,7 +5,7 @@ import com.laf.entity.LostItem;
 
 import java.util.List;
 
-public interface LostItemService {
+public interface LostOrFoundItemService {
     /**
      * 创建失物信息
      * @param lostItemDTO 失物信息对象

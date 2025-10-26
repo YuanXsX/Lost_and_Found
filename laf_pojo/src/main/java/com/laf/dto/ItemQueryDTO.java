@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Data
 public class ItemQueryDTO implements Serializable {
     private String type; // lost or found
-    private String name;
-    private String location;
-    private String timeRange; // 可自定义格式
+    private String itemName;
+    private int page;
+    private int pageSize;
 }

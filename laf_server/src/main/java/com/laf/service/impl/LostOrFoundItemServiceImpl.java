@@ -2,8 +2,8 @@ package com.laf.service.impl;
 
 import com.laf.dto.LostItemDTO;
 import com.laf.entity.LostItem;
-import com.laf.mapper.LostItemMapper;
-import com.laf.service.LostItemService;
+import com.laf.mapper.LostOrFoundItemMapper;
+import com.laf.service.LostOrFoundItemService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,10 @@ import java.util.List;
 @Slf4j
 @Service
 
-public class LostItemServiceImpl implements LostItemService {
+public class LostOrFoundItemServiceImpl implements LostOrFoundItemService {
 
     @Autowired
-    private LostItemMapper lostItemMapper;
+    private LostOrFoundItemMapper lostOrFoundItemMapper;
 
     @Override
     public Long createLostItem(LostItemDTO lostItemDTO) {
@@ -29,7 +29,7 @@ public class LostItemServiceImpl implements LostItemService {
         lostItem.setUpdateTime(LocalDateTime.now());
 
         // 插入数据库
-        int result = lostItemMapper.insert(lostItem);
+        int result = lostOrFoundItemMapper.insert(lostItem);
 
         // 检查插入结果并返回ID
         if (result > 0) {
@@ -42,7 +42,7 @@ public class LostItemServiceImpl implements LostItemService {
     @Override
     public boolean deleteLostItem(Long id) {
         log.info("删除失物信息，ID: {}", id);
-        int result = lostItemMapper.deleteById(id);
+        int result = lostOrFoundItemMapper.deleteById(id);
         return result > 0;
 
     }
@@ -54,32 +54,32 @@ public class LostItemServiceImpl implements LostItemService {
         // 设置更新时间
         lostItem.setUpdateTime(LocalDateTime.now());
 
-        int result = lostItemMapper.update(lostItem);
+        int result = lostOrFoundItemMapper.update(lostItem);
         return result > 0;
     }
 
     @Override
     public LostItem getLostItemById(Long id) {
         log.info("根据ID查询失物信息，ID: {}", id);
-        return lostItemMapper.selectById(id);
+        return lostOrFoundItemMapper.selectById(id);
     }
 
     @Override
     public List<LostItem> getAllLostItems() {
         log.info("查询所有失物信息");
-        return lostItemMapper.selectAll();
+        return lostOrFoundItemMapper.selectAll();
     }
 
     @Override
     public List<LostItem> getLostItemsByName(String itemName) {
         log.info("根据物品名称查询失物信息，名称: {}", itemName);
-        return lostItemMapper.selectByItemName(itemName);
+        return lostOrFoundItemMapper.selectByItemName(itemName);
     }
 
     @Override
     public List<LostItem> getLostItemsByLocation(String lostLocation) {
         log.info("根据地点查询失物信息，地点: {}", lostLocation);
-        return lostItemMapper.selectByLocation(lostLocation);
+        return lostOrFoundItemMapper.selectByLocation(lostLocation);
     }
 
 }

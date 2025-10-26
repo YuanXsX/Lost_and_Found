@@ -6,10 +6,12 @@ package com.laf.controller.user;
 
 import com.laf.constant.JwtClaimsConstant;
 import com.laf.context.BaseContext;
+import com.laf.dto.ItemQueryDTO;
 import com.laf.dto.UserDTO;
 import com.laf.dto.UserLoginDTO;
 import com.laf.entity.User;
 import com.laf.properties.JwtProperties;
+import com.laf.result.PageResult;
 import com.laf.result.Result;
 import com.laf.service.UserService;
 import com.laf.utils.JwtUtil;
@@ -27,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/laf/user")
+@RequestMapping("/laf/user/customer")
 @Slf4j
 @Api(tags = "用户管理子系统")
 public class UserController {
@@ -82,7 +84,7 @@ public class UserController {
      * @param real_name
      * return
      */
-    @PostMapping("/{uesrid}/bindCard")
+    @PostMapping("/bindCard")
     @ApiOperation(value = "绑定校园卡", notes = "绑定校园卡接口")
     public Result<String> bindCard(String cardNumber,String real_name) {
         Long userid = BaseContext.getCurrentId();
@@ -95,7 +97,7 @@ public class UserController {
      * 获取用户信息
      * @return
      */
-    @GetMapping("/{userid}/info")
+    @GetMapping("/info")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息接口")
     public Result<User> getUserInfo() {
         Long userid = BaseContext.getCurrentId();
@@ -105,5 +107,20 @@ public class UserController {
     }
 
 
+
+    /**
+     *查询用户发布的失物招领信息
+     * @param
+     * @return
+     */
+    @GetMapping("/PageQueryUserItems")
+    @ApiOperation(value = "查询用户发布的失物招领信息", notes = "查询用户发布的失物招领信息接口")
+    public Result<PageResult> pageQueryUserItems(ItemQueryDTO itemQueryDTO) {
+        Long userid = BaseContext.getCurrentId();
+        log.info("查询用户发布的失物招领信息，用户id：{}", userid);
+        log.info("失物还是招领：{}", itemQueryDTO.getType());
+        PageResult pageResult = UserService.pageQueryLostOrFoundItems(itemQueryDTO);
+        return Result.success(pageResult);
+    }
 }
 

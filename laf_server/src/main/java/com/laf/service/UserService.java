@@ -1,8 +1,10 @@
 package com.laf.service;
 
+import com.laf.dto.ItemQueryDTO;
 import com.laf.dto.UserDTO;
 import com.laf.dto.UserLoginDTO;
 import com.laf.entity.User;
+import com.laf.result.PageResult;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
@@ -34,4 +36,14 @@ public interface UserService {
      * @return
      */
     User getById(Long userid);
+
+    /**
+     *查询用户发布的失物招领信息
+     * @param itemQueryDTO
+     * @return
+     */
+    PageResult pageQueryLostOrFoundItems(ItemQueryDTO itemQueryDTO);
+
+
+
 }

@@ -4,7 +4,7 @@ import com.laf.context.BaseContext;
 import com.laf.dto.LostItemDTO;
 import com.laf.entity.LostItem;
 import com.laf.result.Result;
-import com.laf.service.LostItemService;
+import com.laf.service.LostOrFoundItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +21,11 @@ import java.util.List;
 public class LostItemController {
 
     @Autowired
-    private LostItemService lostItemService;
+    private LostOrFoundItemService lostOrFoundItemService;
 
     /**
      * 健康检查接口
-     * GET http://localhost:8080/lost/health
+     *
      */
     @GetMapping("/lost/health")
     public String health() {
@@ -37,7 +37,7 @@ public class LostItemController {
 
     /**
      * 创建失物信息
-     * POST http://localhost:8080/lost
+     *
      */
 
     @PostMapping("/lost/create")
@@ -46,7 +46,7 @@ public class LostItemController {
         Long userId = BaseContext.getCurrentId();
         lostItemDTO.setPublisherId(userId);
         try {
-            Long id = lostItemService.createLostItem(lostItemDTO);
+            Long id = lostOrFoundItemService.createLostItem(lostItemDTO);
             log.info("失物信息创建成功，ID: {}", id);
             return Result.success(id);
         } catch (Exception e) {
@@ -57,17 +57,16 @@ public class LostItemController {
     }
 
     /**
-     * 完全绕过认证的测试删除接口
-     * 访问示例: http://localhost:8080/laf/user/lost/no-auth-delete/1
+     * 删除接口
      */
-    @GetMapping("/lost/no-auth-delete/{id}")
-    public Result<String> noAuthDeleteLostItem(@PathVariable Long id) {
-        log.info("=== 绕过认证测试删除接口 ===");
+    @GetMapping("/lost/delete/{id}")
+    public Result<String> DeleteLostItem(@PathVariable Long id) {
+        log.info("=== 删除接口 ===");
         log.info("删除失物信息，ID: {}", id);
 
         try {
             // 直接调用删除方法，不进行任何认证检查
-            boolean success = lostItemService.deleteLostItem(id);
+            boolean success = lostOrFoundItemService.deleteLostItem(id);
 
             if (success) {
                 log.info("✅ 删除成功，ID: {}", id);
@@ -119,7 +118,7 @@ public class LostItemController {
         }
 
         try {
-            boolean success = lostItemService.updateLostItem(lostItem);
+            boolean success = lostOrFoundItemService.updateLostItem(lostItem);
             if (success) {
                 return Result.success("GET修改失物信息成功！ID: " + id);
             } else {
@@ -138,7 +137,7 @@ public class LostItemController {
     public Result<LostItem> getLostItemById(@PathVariable Long id) {
         log.info("根据ID查询失物信息，ID: {}", id);
         try {
-            LostItem lostItem = lostItemService.getLostItemById(id);
+            LostItem lostItem = lostOrFoundItemService.getLostItemById(id);
             if (lostItem != null) {
                 return Result.success(lostItem);
             } else {
@@ -158,7 +157,7 @@ public class LostItemController {
     public Result<List<LostItem>> getAllLostItems() {
         log.info("查询所有失物信息");
         try {
-            List<LostItem> lostItems = lostItemService.getAllLostItems();
+            List<LostItem> lostItems = lostOrFoundItemService.getAllLostItems();
             return Result.success(lostItems);
         } catch (Exception e) {
             log.error("查询所有失物信息异常", e);
@@ -174,7 +173,7 @@ public class LostItemController {
     public Result<List<LostItem>> getLostItemsByName(@RequestParam String itemName) {
         log.info("根据名称查询失物信息，名称: {}", itemName);
         try {
-            List<LostItem> lostItems = lostItemService.getLostItemsByName(itemName);
+            List<LostItem> lostItems = lostOrFoundItemService.getLostItemsByName(itemName);
             return Result.success(lostItems);
         } catch (Exception e) {
             log.error("根据名称查询失物信息异常", e);
@@ -191,7 +190,7 @@ public class LostItemController {
     public Result<List<LostItem>> getLostItemsByLocation(@RequestParam String lostLocation) {
         log.info("根据地点查询失物信息，地点: {}", lostLocation);
         try {
-            List<LostItem> lostItems = lostItemService.getLostItemsByLocation(lostLocation);
+            List<LostItem> lostItems = lostOrFoundItemService.getLostItemsByLocation(lostLocation);
             return Result.success(lostItems);
         } catch (Exception e) {
             log.error("根据地点查询失物信息异常", e);
