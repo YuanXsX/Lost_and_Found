@@ -1,32 +1,39 @@
 package com.laf.service;
 
-import com.laf.dto.LostItemDTO;
-import com.laf.entity.LostItem;
-
+import com.github.pagehelper.Page;
+import com.laf.dto.ItemQueryDTO;
+import com.laf.entity.LostOrFoundItem;
 import java.util.List;
 
 public interface LostOrFoundItemService {
+
     /**
-     * 创建失物信息
-     * @param lostItemDTO 失物信息对象
-     * @return 创建成功的失物ID
+     * 发布失物或招领信息
      */
-    Long createLostItem(LostItemDTO lostItemDTO);
-    // 新增：删除失物信息
-    boolean deleteLostItem(Long id);
+    int publishItem(LostOrFoundItem item);
 
-    boolean updateLostItem(LostItem lostItem);
+    /**
+     * 根据ID删除信息
+     */
+    int deleteItemById(Long id);
 
+    /**
+     * 更新信息
+     */
+    int updateItem(LostOrFoundItem item);
 
-    // 新增：根据ID查询单个失物信息
-    LostItem getLostItemById(Long id);
+    /**
+     * 根据ID查询信息
+     */
+    LostOrFoundItem getItemById(Long id);
 
-    // 新增：查询所有失物信息
-    List<LostItem> getAllLostItems();
+    /**
+     * 查询所有信息
+     */
+    List<LostOrFoundItem> getAllItems();
 
-    // 新增：根据物品名称模糊查询
-    List<LostItem> getLostItemsByName(String itemName);
-
-    // 新增：根据地点查询
-    List<LostItem> getLostItemsByLocation(String lostLocation);
+    /**
+     * 分页查询信息
+     */
+    Page<LostOrFoundItem> pageQueryItems(ItemQueryDTO itemQueryDTO);
 }

@@ -41,4 +41,15 @@ public class GlobalExceptionHandler {
         }
         return Result.error(MessageConstant.UNKNOWN_ERROR);
     }
+
+    /**
+     * 捕获所有其他异常 - 新增这个方法来解决无限循环问题
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(Exception.class)
+    public Result exceptionHandler(Exception ex) {
+        log.error("全局异常信息：", ex);  // 打印完整堆栈信息
+        return Result.error(MessageConstant.UNKNOWN_ERROR);
+    }
 }

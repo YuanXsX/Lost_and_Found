@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.laf.mapper.LostOrFoundItemMapper">
-    <select id="pageQueryLostOrFoundItems" resultType="com.laf.entity.LostOrFoundItem">
+
+    <!-- 分页查询失物和招领信息 -->
+    <select id="pageQuery" resultType="com.laf.entity.LostOrFoundItem">
         SELECT * FROM lost_or_found_item
         <where>
-            <if test="item_name != null and name != ''">
-                AND item_name LIKE CONCAT('%', #{itemName}, '%')
+            <if test="type != null and type != ''">
+                AND lost_or_found =
+                <choose>
+                    <when test="type == 'lost'">0</when>
+                    <when test="type == 'found'">1</when>
+                    <otherwise>0</otherwise>
+                </choose>
             </if>
-            <if test="type != null">
-                AND lost_or_found = #{type}
+            <if test="itemName != null and itemName != ''">
+                AND item_name LIKE CONCAT('%', #{itemName}, '%')
             </if>
         </where>
         ORDER BY create_time DESC
     </select>
+
 </mapper>

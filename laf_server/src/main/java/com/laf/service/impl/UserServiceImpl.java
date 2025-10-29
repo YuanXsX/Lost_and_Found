@@ -8,7 +8,6 @@ import com.laf.dto.ItemQueryDTO;
 import com.laf.dto.UserDTO;
 import com.laf.dto.UserLoginDTO;
 import com.laf.entity.Card;
-import com.laf.entity.LostItem;
 import com.laf.entity.LostOrFoundItem;
 import com.laf.entity.User;
 import com.laf.exception.AccountLockedException;
@@ -124,7 +123,7 @@ public class UserServiceImpl implements UserService {
      */
     public PageResult pageQueryLostOrFoundItems(ItemQueryDTO itemQueryDTO) {
         PageHelper.startPage(itemQueryDTO.getPage(), itemQueryDTO.getPageSize());
-        Page<LostOrFoundItem> page = (Page<LostOrFoundItem>) lostOrFoundItemMapper.pageQueryLostOrFoundItems(itemQueryDTO);
+        Page<LostOrFoundItem> page = (Page<LostOrFoundItem>) lostOrFoundItemMapper.pageQuery(itemQueryDTO);
         return new PageResult(page.getTotal(), page.getResult());
     }
 
