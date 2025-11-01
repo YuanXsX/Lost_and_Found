@@ -62,6 +62,7 @@ public class UserController {
                 .cardNumber(user.getCardNumber())
                 .token(token)
                 .build();
+        log.info("用户登录成功，用户id：{}", user.getId());
         return Result.success(userLoginVO);
     }
 

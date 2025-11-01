@@ -74,6 +74,9 @@ public class UserServiceImpl implements UserService {
      */
     public void register(UserDTO userDTO) {
         User user=new User();
+        if(userMapper.getByUsername(userDTO.getUsername())!=null){
+            throw new AccountNotFoundException(MessageConstant.USER_ALREADY_EXISTS);
+        }
         BeanUtils.copyProperties(userDTO, user);
         // 对密码进行MD5加密
         String password = DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes());

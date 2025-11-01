@@ -42,7 +42,7 @@ public class JwtUtil {
     /**
      * Token解密
      *
-     * @param secretKey jwt秘钥 此秘钥一定要保留好在服务端, 不能暴露出去, 否则sign就可以被伪造, 如果对接多个客户端建议改造成多个
+     * @param secretKey jwt秘钥
      * @param token     加密后的token
      * @return
      */
@@ -55,5 +55,20 @@ public class JwtUtil {
                 .parseClaimsJws(token).getBody();
         return claims;
     }
+
+
+    /**解析 token 返回用户 id
+     * @param token 加密后的 token
+     * @return 用户 id
+     */
+    public static Long getUserIdFromToken(String token) {
+        Claims claims = Jwts.parser()
+                // 设置签名的秘钥
+                .setSigningKey("your_secret_key".getBytes(StandardCharsets.UTF_8))
+                // 设置需要解析的jwt
+                .parseClaimsJws(token).getBody();
+        return Long.valueOf(claims.get("userId").toString());
+    }
+
 
 }

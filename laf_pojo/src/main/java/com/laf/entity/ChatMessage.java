@@ -10,9 +10,10 @@ import java.time.LocalDateTime;
  */
 @Data
 public class ChatMessage implements Serializable {
-    private Long claimId;
-    private Long senderId;
+    private Long id;
+    private Long fromId;
+    private Long toId;
     private String content;
-    private LocalDateTime sendTime;
-    private Boolean isRead;
+    private LocalDateTime timestamp;
+    private Integer status; // 0 未读 1 已读
 }
