@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class ChatMessageController {
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    //@Autowired
+    //private SimpMessagingTemplate messagingTemplate;
     @Autowired
     private ChatMessageService chatMessageService;
 
@@ -20,6 +20,6 @@ public class ChatMessageController {
         chatMessageService.saveMessage(msg);
         // 发送给目标用户，用户会收到 /user/queue/messages
         String user = String.valueOf(msg.getToId());
-        messagingTemplate.convertAndSendToUser(user, "/queue/messages", msg);
+        //messagingTemplate.convertAndSendToUser(user, "/queue/messages", msg);
     }
 }

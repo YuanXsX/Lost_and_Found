@@ -18,12 +18,14 @@ import com.laf.utils.JwtUtil;
 import com.laf.vo.UserLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +47,7 @@ public class UserController {
      */
     @PostMapping("/login")
     @ApiOperation(value = "用户登录", notes = "用户登录接口")
-    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO) {
+    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpSession session) {
         log.info("用户登录，用户名：{}", userLoginDTO.getUsername());
         User user = UserService.login(userLoginDTO);
         Map<String, Object> claims = new HashMap<>();
@@ -63,6 +65,7 @@ public class UserController {
                 .token(token)
                 .build();
         log.info("用户登录成功，用户id：{}", user.getId());
+        session.setAttribute(JwtClaimsConstant.USER_ID, user.getId());
         return Result.success(userLoginVO);
     }
 
