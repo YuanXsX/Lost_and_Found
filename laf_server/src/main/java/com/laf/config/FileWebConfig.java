@@ -22,6 +22,7 @@ public class FileWebConfig implements WebMvcConfigurer {
             File uploadDirFile = new File(uploadDir);
             String absolutePath = uploadDirFile.getAbsolutePath();
 
+
             // 确保路径格式正确
             String location = "file:" + absolutePath;
             if (!absolutePath.endsWith(File.separator)) {

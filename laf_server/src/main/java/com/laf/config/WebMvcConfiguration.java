@@ -28,6 +28,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/laf/user/customer/login", "/laf/user/customer/register");
     }
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("设置静态资源映射（仅应用自有静态资源）...");

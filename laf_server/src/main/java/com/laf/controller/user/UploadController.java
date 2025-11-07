@@ -87,6 +87,7 @@ public class UploadController {
         }
     }
 
+
     private boolean isAllowedFileType(String ext) {
         return ext.matches("\\.(jpg|jpeg|png|gif|bmp|webp)$");
     }
