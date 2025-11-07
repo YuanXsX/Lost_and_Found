@@ -2,8 +2,11 @@ package com.laf.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
-public class CreateLostOrFoundItemDTO {
+public class CreateLostOrFoundItemDTO implements Serializable {
     private String itemName;
     private String description;
     private String location;

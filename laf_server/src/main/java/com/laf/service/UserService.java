@@ -44,6 +44,8 @@ public interface UserService {
      */
     PageResult pageQueryLostOrFoundItems(ItemQueryDTO itemQueryDTO);
 
-
-
+    /**
+     * 修改用户信息
+     */
+    void updateUserInfo(User user);
 }

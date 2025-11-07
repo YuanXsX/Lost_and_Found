@@ -1,6 +1,7 @@
 package com.laf.controller.user;
 
 import com.github.pagehelper.Page;
+import com.laf.context.BaseContext;
 import com.laf.dto.CreateLostOrFoundItemDTO;
 import com.laf.dto.ItemQueryDTO;
 import com.laf.dto.UpdateLostOrFoundItemDTO;
@@ -32,13 +33,11 @@ public class LostOrFoundItemController {
     @PostMapping("/create")
     public Result<String> createItem(@RequestBody CreateLostOrFoundItemDTO createDTO) {
         try {
-            // 临时使用固定用户ID，先让接口正常工作
-            Long publisherId = 3L;
-
             LostOrFoundItem item = new LostOrFoundItem();
+            Long userid = BaseContext.getCurrentId();
             BeanUtils.copyProperties(createDTO, item);
-            item.setPublisherId(publisherId);
-
+            item.setPublisherId(userid);
+            log.info(String.valueOf(createDTO.getLocation()));
             int result = lostOrFoundItemService.publishItem(item);
             if (result > 0) {
                 return Result.success("发布成功");
@@ -134,11 +133,6 @@ public class LostOrFoundItemController {
                 return Result.error("未找到该记录");
             }
 
-            // 临时跳过权限校验，先让接口正常工作
-            // Long publisherId = getPublisherIdFromRequest(request);
-            // if (!existingItem.getPublisherId().equals(publisherId)) {
-            //     return Result.error("无权删除该记录");
-            // }
 
             int result = lostOrFoundItemService.deleteItemById(id);
             if (result > 0) {

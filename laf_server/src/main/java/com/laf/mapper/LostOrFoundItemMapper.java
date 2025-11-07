@@ -15,7 +15,7 @@ public interface LostOrFoundItemMapper {
      * 插入失物和招领信息
      */
     @Insert("INSERT INTO lost_or_found_item (item_name, description, location, time, publisher_id, status, create_time, update_time, image_url, item_type,lost_or_found)" +
-            "VALUES (#{itemName}, #{description}, #{Location}, #{Time}, #{publisherId}, #{status}, #{createTime}, #{updateTime}, #{imageUrl}, #{itemType}, #{lostOrFound})")
+            "VALUES (#{itemName}, #{description}, #{location}, #{time}, #{publisherId}, #{status}, #{createTime}, #{updateTime}, #{imageUrl}, #{itemType}, #{lostOrFound})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(LostOrFoundItem lostOrFoundItem);
 
@@ -30,8 +30,8 @@ public interface LostOrFoundItemMapper {
     @Update("UPDATE lost_or_found_item SET " +
             "item_name = #{itemName}, " +
             "description = #{description}, " +
-            "location = #{Location}, " +      // 使用 #{Location}
-            "time = #{Time}, " +              // 使用 #{Time}
+            "location = #{location}, " +      // 使用 #{Location}
+            "time = #{time}, " +              // 使用 #{Time}
             "publisher_id = #{publisherId}, " +
             "status = #{status}, " +
             "update_time = #{updateTime}, " +

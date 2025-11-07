@@ -11,5 +11,4 @@ import java.io.Serializable;
 public class ClaimProcessDTO implements Serializable {
     private Long claimId;
     private String status; // pending, approved, rejected
-    private String handlerMessage;
 }

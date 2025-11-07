@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket 测试客户端</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .panel { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        h2, h3 { border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        input[type="text"] { width: 95%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 15px; margin-right: 10px; cursor: pointer; }
+        #log { width: 98%; height: 300px; margin-top: 10px; }
+        .status { font-weight: bold; }
+        .connected { color: green; }
+        .disconnected { color: red; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>WebSocket 测试客户端</h2>
+
+    <div class="panel">
+        <h3>1. 连接控制</h3>
+        <label for="token">JWT Token:</label>
+        <input type="text" id="token" placeholder="在此处粘贴登录后获取的Token">
+        <label for="fromId">你的用户ID (From ID):</label>
+        <input type="text" id="fromId" placeholder="在此处粘贴你的用户ID">
+        <button onclick="connect()">连接</button>
+        <button onclick="disconnect()">断开连接</button>
+        <p>状态: <span id="status" class="status disconnected">未连接</span></p>
+    </div>
+
+    <div class="panel">
+        <h3>2. 发送消息</h3>
+        <label for="toId">接收者ID (To ID):</label>
+        <input type="text" id="toId" placeholder="输入消息接收者的用户ID">
+        <label for="message">消息内容:</label>
+        <input type="text" id="message" placeholder="输入要发送的消息">
+        <button onclick="sendMessage()">发送消息</button>
+    </div>
+
+    <div class="panel">
+        <h3>3. 消息日志</h3>
+        <textarea id="log" readonly></textarea>
+    </div>
+</div>
+
+<script>
+    let ws = null;
+    const statusElem = document.getElementById('status');
+    const logElem = document.getElementById('log');
+    const tokenInput = document.getElementById('token');
+    const fromIdInput = document.getElementById('fromId');
+
+    function log(message) {
+        logElem.value += `[${new Date().toLocaleTimeString()}] ${message}\n`;
+        logElem.scrollTop = logElem.scrollHeight;
+    }
+
+    function connect() {
+        if (ws) {
+            log("错误：已经连接。请先断开。");
+            return;
+        }
+        const token = tokenInput.value.trim();
+        if (!token) {
+            alert("请输入JWT Token！");
+            return;
+        }
+
+        // 请根据你的实际服务器地址和端口修改
+        const wsUrl = `ws://localhost:8080/user/chat/${token}`;
+
+        log(`正在连接到 ${wsUrl} ...`);
+        ws = new WebSocket(wsUrl);
+
+        ws.onopen = function() {
+            statusElem.textContent = '已连接';
+            statusElem.className = 'status connected';
+            log("WebSocket 连接成功！");
+        };
+
+        ws.onmessage = function(event) {
+            log(`收到消息: ${event.data}`);
+            // 尝试解析JSON以美化显示
+            try {
+                const parsedData = JSON.parse(event.data);
+                log(`解析后的数据: ${JSON.stringify(parsedData, null, 2)}`);
+            } catch (e) {
+                // 不是JSON格式，直接显示原始数据
+            }
+        };
+
+        ws.onclose = function() {
+            statusElem.textContent = '未连接';
+            statusElem.className = 'status disconnected';
+            log("WebSocket 连接已关闭。");
+            ws = null;
+        };
+
+        ws.onerror = function(error) {
+            log(`WebSocket 错误: ${error.message || '未知错误'}`);
+            console.error("WebSocket Error: ", error);
+        };
+    }
+
+    function disconnect() {
+        if (ws) {
+            ws.close();
+        } else {
+            log("当前没有活动的连接。");
+        }
+    }
+
+    function sendMessage() {
+        if (!ws || ws.readyState !== WebSocket.OPEN) {
+            alert("请先建立WebSocket连接！");
+            return;
+        }
+
+        const fromId = fromIdInput.value.trim();
+        const toId = document.getElementById('toId').value.trim();
+        const content = document.getElementById('message').value.trim();
+
+        if (!fromId || !toId || !content) {
+            alert("你的用户ID、接收者ID和消息内容不能为空！");
+            return;
+        }
+
+        const messagePayload = {
+            fromId: parseInt(fromId, 10),
+            toId: parseInt(toId, 10),
+            content: content,
+            timestamp: new Date().toISOString()
+        };
+
+        const messageString = JSON.stringify(messagePayload);
+        log(`发送消息: ${messageString}`);
+        ws.send(messageString);
+
+        // 清空消息输入框
+        document.getElementById('message').value = '';
+    }
+</script>
+
+</body>
+</html>

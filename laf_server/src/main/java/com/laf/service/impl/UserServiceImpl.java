@@ -14,9 +14,11 @@ import com.laf.exception.AccountLockedException;
 import com.laf.exception.AccountNotFoundException;
 import com.laf.exception.PasswordErrorException;
 import com.laf.mapper.CardMapper;
+import com.laf.mapper.ChatUserMapper;
 import com.laf.mapper.LostOrFoundItemMapper;
 import com.laf.mapper.UserMapper;
 import com.laf.result.PageResult;
+import com.laf.service.LostOrFoundItemService;
 import com.laf.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,12 @@ import java.time.LocalDateTime;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
     private CardMapper cardMapper;
+    @Autowired
     private LostOrFoundItemMapper lostOrFoundItemMapper;
+    @Autowired
+    private ChatUserMapper chatUserMapper;
 
     @Value("${laf.avatar.default-url:/images/default_avatar.jpeg}")
     private String defaultAvatarUrl;
@@ -130,4 +136,20 @@ public class UserServiceImpl implements UserService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+    /**
+     * 修改用户信息
+     */
+    public void updateUserInfo(User user) {
+        User existingUser = userMapper.getById(user.getId());
+        if (existingUser == null) {
+            throw new AccountNotFoundException(MessageConstant.USER_NOT_FOUND);
+        }
+        // 只更新允许修改的字段
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPhone(user.getPhone());
+        existingUser.setAvatarUrl(user.getAvatarUrl());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setUpdateTime(LocalDateTime.now());
+        userMapper.update(existingUser);
+    }
 }

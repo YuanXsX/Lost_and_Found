@@ -16,6 +16,7 @@ public class CorsConfig {
                         .allowedOriginPatterns("http://localhost:63342",
                                 "http://127.0.0.1:63342",
                                 "http://10.76.161.67:8080") // 支持通配并可与 allowCredentials(true) 一起使用
+                                //"http://10.82.172.51:8080")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true)

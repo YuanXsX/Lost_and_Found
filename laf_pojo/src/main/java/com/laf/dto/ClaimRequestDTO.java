@@ -10,6 +10,5 @@ import java.io.Serializable;
 @Data
 public class ClaimRequestDTO implements Serializable {
     private Long itemId;
-    private Long claimantId;
-    private String message;
+    private Long toId;
 }

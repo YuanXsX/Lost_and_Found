@@ -47,7 +47,7 @@ public class UserController {
      */
     @PostMapping("/login")
     @ApiOperation(value = "用户登录", notes = "用户登录接口")
-    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO, HttpSession session) {
+    public Result<UserLoginVO> login(UserLoginDTO userLoginDTO) {
         log.info("用户登录，用户名：{}", userLoginDTO.getUsername());
         User user = UserService.login(userLoginDTO);
         Map<String, Object> claims = new HashMap<>();
@@ -65,7 +65,6 @@ public class UserController {
                 .token(token)
                 .build();
         log.info("用户登录成功，用户id：{}", user.getId());
-        session.setAttribute(JwtClaimsConstant.USER_ID, user.getId());
         return Result.success(userLoginVO);
     }
 
@@ -125,6 +124,16 @@ public class UserController {
         log.info("失物还是招领：{}", itemQueryDTO.getType());
         PageResult pageResult = UserService.pageQueryLostOrFoundItems(itemQueryDTO);
         return Result.success(pageResult);
+    }
+
+    @PutMapping("/update" )
+    @ApiOperation(value = "修改用户信息", notes = "修改用户信息接口")
+    public Result<String> updateUserInfo(@RequestBody User user) {
+        Long userid = BaseContext.getCurrentId();
+        user.setId(userid);
+        log.info("修改用户信息，用户id：{}", userid);
+        UserService.updateUserInfo(user);
+        return Result.success("修改成功");
     }
 }
 

@@ -12,8 +12,8 @@ public interface ChatMessageMapper {
      * 插入聊天消息
      * @param m
      */
-    @Insert("INSERT INTO chat_message (form_id, to_id, content, timestamp, status) " +
-            "VALUES (#{formId}, #{toId}, #{content}, #{timestamp}, #{status})")
+    @Insert("INSERT INTO chat_message (from_id, to_id, content, timestamp, status) " +
+            "VALUES (#{fromId}, #{toId}, #{content}, #{timestamp}, #{status})")
     void insert(ChatMessage m);
 
     /**
