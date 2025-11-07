@@ -17,4 +17,15 @@
         </set>
         WHERE id = #{id}
     </update>
+
+    <!-- 根据ID列表查询UserVO -->
+    <select id="selectUserVOByIds" resultType="com.laf.vo.UserVO">
+        SELECT id, username, email, phone
+        FROM user
+        WHERE id IN
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
 </mapper>

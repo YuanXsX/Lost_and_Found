@@ -17,5 +17,4 @@ public class UserVO implements Serializable {
     private String username;
     private String email;
     private String phone;
-    private BigDecimal pricture;
 }

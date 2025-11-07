@@ -148,7 +148,10 @@ public class UserServiceImpl implements UserService {
         existingUser.setEmail(user.getEmail());
         existingUser.setPhone(user.getPhone());
         existingUser.setAvatarUrl(user.getAvatarUrl());
-        existingUser.setPassword(user.getPassword());
+        if (user.getPassword() != null && !user.getPassword().isBlank()) {
+            String password = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+            existingUser.setPassword(password);
+        }
         existingUser.setUpdateTime(LocalDateTime.now());
         userMapper.update(existingUser);
     }

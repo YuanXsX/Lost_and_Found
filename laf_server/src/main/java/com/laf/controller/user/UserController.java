@@ -83,16 +83,17 @@ public class UserController {
 
     /**
      * 绑定校园卡
-     * @param cardNumber
-     * @param real_name
+     * @param body
      * return
      */
     @PostMapping("/bindCard")
     @ApiOperation(value = "绑定校园卡", notes = "绑定校园卡接口")
-    public Result<String> bindCard(String cardNumber,String real_name) {
+    public Result<String> bindCard(@RequestBody Map<String, String> body) {
         Long userid = BaseContext.getCurrentId();
-        log.info("绑定校园卡，用户id：{}，卡号：{}", userid, cardNumber);
-        UserService.bindCard(userid,cardNumber,real_name);
+        String cardNumber = body.get("cardNumber");
+        String realName = body.get("real_name");
+        log.info("绑定校园卡，用户id：{}，卡号：{}，姓名：{}", userid, cardNumber, realName);
+        UserService.bindCard(userid, cardNumber, realName);
         return Result.success("绑定成功");
     }
 

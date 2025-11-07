@@ -53,7 +53,8 @@ public class ClaimController {
 
     @PostMapping("/uploadchatUser")
     @ApiOperation(value = "存储对话数据库", notes = "存储对话数据库接口")
-    public Result<String> uploadchatUser(Long fromId,Long toId) {
+    public Result<String> uploadchatUser(@RequestBody Long toId) {
+        Long fromId= BaseContext.getCurrentId();
         log.info("存储对话数据库，fromId：{}，toId：{}", fromId,toId);
         claimService.uploadchatUser(fromId,toId);
         return Result.success("存储成功");

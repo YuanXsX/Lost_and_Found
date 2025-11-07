@@ -1,10 +1,14 @@
 package com.laf.mapper;
 
+import com.github.pagehelper.Page;
 import com.laf.entity.User;
+import com.laf.vo.UserVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -45,4 +49,11 @@ public interface UserMapper {
      */
     @Select("UPDATE user SET avatar_url = #{publicUrl} WHERE id = #{userId}")
     void updateAvatarUrl(Long userId, String publicUrl);
+
+    /**
+     * 通过一组ID获取用户视图对象
+     * @param toIds
+     * @return
+     */
+    Page<UserVO> selectUserVOByIds(List<Long> toIds);
 }

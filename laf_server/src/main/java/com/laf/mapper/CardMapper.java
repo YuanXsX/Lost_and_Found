@@ -13,6 +13,6 @@ public interface CardMapper {
      * @param cardNumber 卡号
      * @return 用户信息
      */
-    @Select("SELECT * FROM users WHERE card_number = #{cardNumber}")
+    @Select("SELECT * FROM card WHERE card_number = #{cardNumber}")
     Card getByCardNumber(String cardNumber);
 }

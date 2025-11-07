@@ -8,15 +8,20 @@ import com.laf.dto.ClaimProcessDTO;
 import com.laf.dto.ClaimRequestDTO;
 import com.laf.entity.Claim;
 import com.laf.entity.LostOrFoundItem;
+import com.laf.entity.User;
 import com.laf.mapper.ChatUserMapper;
 import com.laf.mapper.ClaimMapper;
 import com.laf.mapper.LostOrFoundItemMapper;
+import com.laf.mapper.UserMapper;
 import com.laf.result.PageResult;
 import com.laf.service.ClaimService;
+import com.laf.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class ClaimServiceImpl implements ClaimService {
@@ -26,6 +31,8 @@ public class ClaimServiceImpl implements ClaimService {
     private LostOrFoundItemMapper lostOrFoundItemMapper;
     @Autowired
     private ChatUserMapper chatUserMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public void createClaimRequest(ClaimRequestDTO claimDTO) {
@@ -83,8 +90,18 @@ public class ClaimServiceImpl implements ClaimService {
 
     @Override
     public PageResult seekChatuser(ChatUserDTO chatUserDTO) {
+        // 1. 查询 toId 列表
+        Page<Long> toIdPage = (Page<Long>) chatUserMapper.pageQuery(chatUserDTO);
+        List<Long> toIds = toIdPage.getResult();
+
+        // 2. 如果 toId 列表为空，直接返回空结果
+        if (toIds == null || toIds.isEmpty()) {
+            return new PageResult(0, Collections.emptyList());
+        }
+
+        // 3. 使用 toId 列表进行分页查询 UserVO
         PageHelper.startPage(chatUserDTO.getPage(), chatUserDTO.getPageSize());
-        Page<Long> page = (Page<Long>) chatUserMapper.pageQuery(chatUserDTO);
+        Page<UserVO> page = userMapper.selectUserVOByIds(toIds);
         return new PageResult(page.getTotal(), page.getResult());
     }
 

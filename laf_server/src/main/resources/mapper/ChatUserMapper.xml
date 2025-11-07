@@ -4,7 +4,7 @@
 
     <!-- 根据用户名查询用户信息 -->
     <select id="pageQuery" resultType="Long">
-        SELECT toId FROM chat_user WHERE fromId = #{Id}
+        SELECT toId FROM chat_user WHERE fromId = #{id}
     </select>
 
 </mapper>
